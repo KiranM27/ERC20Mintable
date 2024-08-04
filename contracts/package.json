@@ -6,6 +6,10 @@
   "repository": "https://github.com/KiranM27/ERC20Mintable",
   "author": "Kiran Mohan B",
   "license": "MIT",
+  "scripts": {
+    "compile": "npx hardhat compile",
+    "test": "npx hardhat test"
+  },
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
     "@nomicfoundation/hardhat-ethers": "^3.0.0",
