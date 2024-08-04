@@ -34,7 +34,6 @@ contract NodeERC20 is ERC20, ERC20Burnable, ERC20Pausable, AccessControl {
     }
 
     // The following functions are overrides required by Solidity.
-
     function _update(
         address from,
         address to,
@@ -42,4 +41,27 @@ contract NodeERC20 is ERC20, ERC20Burnable, ERC20Pausable, AccessControl {
     ) internal override(ERC20, ERC20Pausable) {
         super._update(from, to, value);
     }
+
+    /**
+     * @dev Returns the token details including the symbol, total supply, and paused status.
+     * @return string memory - The name of the token.
+     * @return string memory - The symbol of the token.
+     * @return uint8 - The number of decimals the token uses.
+     * @return uint256 - The total supply of the token.
+     * @return bool - The paused status of the contract, where `true` indicates that the contract is paused and `false` indicates it is not.
+    * **/
+    function getTokenDetails()
+        public
+        view
+        returns (
+            string memory,
+            string memory,
+            uint8,
+            uint256,
+            bool
+        )
+    {
+        return (name(), symbol(), decimals(), totalSupply(), paused());
+    }
+
 }

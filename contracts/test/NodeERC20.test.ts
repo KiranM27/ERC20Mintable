@@ -230,4 +230,37 @@ describe("ERC20 Token Contract", function () {
       );
     });
   });
+
+  describe("Get Token Details", function () {
+    it("Should return the correct token name", async function () {
+      const [name] = await nodeERC20.getTokenDetails();
+      expect(name).to.equal("Node");
+    });
+
+    it("Should return the correct token symbol", async function () {
+      const [, symbol] = await nodeERC20.getTokenDetails();
+      expect(symbol).to.equal("NODE");
+    });
+
+    it("Should return the correct token decimals", async function () {
+      const [, , decimals] = await nodeERC20.getTokenDetails();
+      expect(decimals).to.equal(18);
+    });
+
+    it("Should return the correct token total supply", async function () {
+      const [, , , totalSupply] = await nodeERC20.getTokenDetails();
+      expect(totalSupply).to.equal(0);
+    });
+
+    it("Should return the correct token paused status", async function () {
+      const [, , , , paused] = await nodeERC20.getTokenDetails();
+      expect(paused).to.be.false;
+    });
+
+    it("Should return the correct amount of total supply after minting", async function () {
+      await nodeERC20.mint(owner.address, 100);
+      const [, , , totalSupply] = await nodeERC20.getTokenDetails();
+      expect(totalSupply).to.equal(100);
+    });
+  });
 });
