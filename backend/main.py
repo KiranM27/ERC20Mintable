@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from modules.helpers import get_sepolia_node_erc20_interface
 from modules.constants import ERROR_MESSAGE, RESPONSE
+from modules.input_validator import InputValidator
 
 app = FastAPI()
 
@@ -62,6 +63,9 @@ async def get_balance(address: str):
     }
 
     try:
+        # validate the address
+        InputValidator.is_address(address)
+
         # get the balance
         node_erc20_interface = get_sepolia_node_erc20_interface()
         balance = node_erc20_interface.get_balance(address)
@@ -78,6 +82,7 @@ async def get_balance(address: str):
         message = ERROR_MESSAGE.format(str(e))
         print(message)
         response["message"] = message
+        return response
 
 
 # route to check if the contract is paused
@@ -108,6 +113,7 @@ async def is_paused():
         message = ERROR_MESSAGE.format(str(e))
         print(message)
         response["message"] = message
+        return response
 
 
 # route to check if an address is a pauser
@@ -121,6 +127,9 @@ async def is_pauser(address: str):
     }
 
     try:
+        # validate the address
+        InputValidator.is_address(address)
+
         # check if the address is a pauser
         node_erc20_interface = get_sepolia_node_erc20_interface()
         is_pauser = node_erc20_interface.is_pauser(address)
@@ -138,6 +147,7 @@ async def is_pauser(address: str):
         message = ERROR_MESSAGE.format(str(e))
         print(message)
         response["message"] = message
+        return response
 
 
 # route to check if an address is a minter
@@ -151,6 +161,9 @@ async def is_minter(address: str):
     }
 
     try:
+        # validate the address
+        InputValidator.is_address(address)
+
         # check if the address is a minter
         node_erc20_interface = get_sepolia_node_erc20_interface()
         is_minter = node_erc20_interface.is_minter(address)
@@ -168,6 +181,7 @@ async def is_minter(address: str):
         message = ERROR_MESSAGE.format(str(e))
         print(message)
         response["message"] = message
+        return response
 
 
 # route to check if an address is an admin
@@ -181,6 +195,9 @@ async def is_admin(address: str):
     }
 
     try:
+        # validate the address
+        InputValidator.is_address(address)
+
         # check if the address is an admin
         node_erc20_interface = get_sepolia_node_erc20_interface()
         is_admin = node_erc20_interface.is_admin(address)
